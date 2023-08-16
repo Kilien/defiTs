@@ -37,21 +37,23 @@ describe('factory', () => {
 
     contractFactory = await ethers.getContractFactory('UniswapV2Factory');
     contract = await contractFactory.deploy(owner);
-    const res = await contract.createPair(APT.target, PTX.target);
+    await contract.createPair(APT.target, PTX.target);
     pair = await contract.getPair(APT.target, PTX.target);
 
     const routerFactory = await ethers.getContractFactory('UniswapV2Router02');
     router = await routerFactory.deploy(contract.target, WBNB.target);
 
-    // const routerFactory = await ethers.getContractFactory('CnnRouter');
-    // router = await routerFactory.deploy(contract.target, WBNB.target);
   });
 
   describe('Correct setup', () => {
     it("获取Pair地址", async () => { 
       PTX.approve(router.target, MaxUint256);
       APT.approve(router.target, MaxUint256);
+
+      const pairHash = await contract.INIT_CODE_PAIR_HASH();
       console.log('pair0...', pair);
+      console.log('INIT_CODE_PAIR_HASH...', pairHash);
+      
       
       const add = await router.addLiquidity(APT.target, PTX.target, ethers.parseEther('100'), ethers.parseEther('100'), 0, 0, ownerAddress, MaxUint256, {
         gasLimit: 9999999
