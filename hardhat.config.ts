@@ -83,6 +83,11 @@ const config: HardhatUserConfig = {
       accounts: [`${PrivateKey}`],
       timeout: 600000000,
     },
+    Matic: {
+      url: 'https://rpc.ankr.com/polygon',
+      chainId: 137,
+      accounts: [`${PrivateKey}`]
+    },
     Arb: {
       url: "https://1rpc.io/arb",
       chainId: 0xa4b1,

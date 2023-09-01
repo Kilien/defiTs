@@ -7,9 +7,10 @@
     "test": "npx hardhat test test/swap.ts",
     "deploy": "npx hardhat run scripts/deploy.ts --network bscTestnet",
     "verify": "npx hardhat run scripts/verify.ts --network bscTestnet",
-    "run:testBsc": "npx hardhat run scripts/main.ts --network bscTestnet",
-    "run:testMatic": "npx hardhat run scripts/main.ts --network testMatic",
-    "run:testArb": "npx hardhat run scripts/main.ts --network testArb"
+    "mempool": "npx hardhat run scripts/mempool.ts --network Matic",
+    "testBsc": "npx hardhat run scripts/main.ts --network bscTestnet",
+    "testMatic": "npx hardhat run scripts/main.ts --network testMatic",
+    "testArb": "npx hardhat run scripts/main.ts --network testArb"
   },
   "repository": {
     "type": "git",
