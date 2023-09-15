@@ -8,6 +8,8 @@
     "deploy": "npx hardhat run scripts/deploy.ts --network bscTestnet",
     "verify": "npx hardhat run scripts/verify.ts --network bscTestnet",
     "mempool": "npx hardhat run scripts/mempool.ts --network Matic",
+    "Bsc": "npx hardhat run scripts/main.ts --network bsc",
+    "Matic": "npx hardhat run scripts/main.ts --network polygon",
     "testBsc": "npx hardhat run scripts/main.ts --network bscTestnet",
     "testMatic": "npx hardhat run scripts/main.ts --network testMatic",
     "testArb": "npx hardhat run scripts/main.ts --network testArb"

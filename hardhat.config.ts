@@ -83,8 +83,13 @@ const config: HardhatUserConfig = {
       accounts: [`${PrivateKey}`],
       timeout: 600000000,
     },
-    Matic: {
-      url: 'https://rpc.ankr.com/polygon',
+    bsc: {
+      url: 'https://bsc.publicnode.com',
+      chainId: 56,
+      accounts: [`${PrivateKey}`]
+    },
+    polygon: {
+      url: 'https://polygon.drpc.org',
       chainId: 137,
       accounts: [`${PrivateKey}`]
     },
@@ -101,6 +106,8 @@ const config: HardhatUserConfig = {
       testMatic: process.env.MaticKey as string,
       testArb: process.env.ARBKey as string,
       Arb: process.env.ARBKey as string,
+      bsc: process.env.BscKey as string,
+      polygon: process.env.MaticKey as string,
     }
   }
 };
