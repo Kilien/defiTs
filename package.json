@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx hardhat test test/swap.ts",
+    "test": "npx hardhat test test/slt.ts",
     "deploy": "npx hardhat run scripts/deploy.ts --network bscTestnet",
     "verify": "npx hardhat run scripts/verify.ts --network bscTestnet",
     "mempool": "npx hardhat run scripts/mempool.ts --network Matic",
