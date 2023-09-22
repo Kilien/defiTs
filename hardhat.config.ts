@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@openzeppelin/hardhat-upgrades";
 
 const PrivateKey = process.env.PRIVATE_KEY;
 const endpoint = process.env.URL;
@@ -70,6 +71,7 @@ const config: HardhatUserConfig = {
       url: 'https://data-seed-prebsc-2-s1.bnbchain.org:8545',
       chainId: 97,
       accounts: [`${PrivateKey}`],
+      gasPrice: 50000000000,
       timeout: 600000000
     },
     testMatic: {

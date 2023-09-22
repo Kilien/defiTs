@@ -12,17 +12,20 @@ contract SLT is Ownable {
         uint claimed;
         uint toClaim;
         uint stakeAmount;
-        address inviter;
         address[] referrals;
         address invitor;
         uint lastLevel;
         uint lowNum;
     }
 
+    struct sectionTree {
+      uint id;
+      address userAddress;
+    }
+
     mapping(address => uint) public addressToIndex;
     mapping(uint => address) public indexToAddress;
 
-    uint public userId = 1;
     mapping(uint => address) public referrer;
     mapping(address => uint) public userIndex;
     mapping(address => UserInfo) public userInfo;
@@ -48,17 +51,16 @@ contract SLT is Ownable {
 
     function setInviter(address userAddr_) external returns (bool) {
         require(
-            userInfo[msg.sender].inviter == address(0),
+            userInfo[msg.sender].invitor == address(0),
             "Already have referrals"
         );
-        userInfo[msg.sender].inviter = userAddr_;
-        userInfo[msg.sender].id = userId;
+        userInfo[msg.sender].invitor = userAddr_;
+        userInfo[msg.sender].id = findIndex(userAddr_);
 
         if (userInfo[userAddr_].referrals.length < 3) {
             userInfo[userAddr_].referrals.push(msg.sender);
         }
 
-        userId += 1;
         return true;
     }
 
@@ -76,28 +78,12 @@ contract SLT is Ownable {
         return guess;
     }
 
-    function temp(uint256 index) public pure returns(uint256) {
-        if (index == 1) {
-            return 0;
-        }
-
-        uint256 lowerBound = 1;
-        uint256 upperBound = 2;
-
-        while (true) {
-            if (index >= lowerBound * lowerBound && index < upperBound * upperBound) {
-                uint256 result = calculateSquareRoot(index);
-                return result; // 添加明确的返回语句
-            }
-
-            lowerBound = upperBound;
-            upperBound *= 2;
-        }
-    }
-
-    function levelToArray(uint index, uint level) public pure returns (uint start, uint end){
+    function levelToArray(
+        uint index,
+        uint level
+    ) public pure returns (uint start, uint end) {
         uint temp = index * 3 ** level;
-        for (uint i = 0; i < level - 1; i ++) {
+        for (uint i = 0; i < level - 1; i++) {
             temp += 3 ** (level - i - 1);
         }
         temp += 1;
@@ -106,7 +92,7 @@ contract SLT is Ownable {
         end = start + length - 1;
     }
 
-    function findLowNum(address addr) public view returns (uint){
+    function findLowNum(address addr) public view returns (uint) {
         uint out;
         while (true) {
             if (addr == address(this)) {
@@ -123,7 +109,7 @@ contract SLT is Ownable {
         return out;
     }
 
-    function findIndex(address addr) public returns (uint){
+    function findIndex(address addr) public returns (uint) {
         uint index = addressToIndex[addr];
         uint out = 0;
         uint level = userInfo[addr].lastLevel;
@@ -166,7 +152,7 @@ contract SLT is Ownable {
         userInfo[sender].invitor = indexToAddress[index / 3];
     }
 
-    function bind(address invitor) external {
-        _bind(msg.sender, invitor);
+    function stake() external {
+        require(userInfo[msg.sender].invitor == address(0), "already bond");
     }
 }
